@@ -3,8 +3,6 @@ import cors from 'cors'
 import axios from 'axios'
 import dotenv from 'dotenv'
 
-
-
 dotenv.config()
 const app = express()
 app.use(cors())
@@ -50,8 +48,6 @@ app.post('/ciba-authorize',async(req,res)=>{
     }
 })
 
-
-
 //------------------ ACESS TOKEN ----------------------------
 
 app.post('/acess-token',async(req,res)=>{
@@ -75,6 +71,54 @@ app.post('/acess-token',async(req,res)=>{
         res.status(200).send({ access_token })
 
     } catch (error) {
+        res.status(500).send({ error: `An error occurred: ${error.message}` })
+    }
+})
+
+//------------------ SIM SWAP ----------------------------------
+
+app.post('/sim-swap', async (req, res) => {
+    try {
+        const phoneNumber = req.body.phoneNumber
+        let maxAge = req.body.maxAge
+
+        const authHeader = req.headers.authorization
+
+        if (!authHeader) {
+            return res.status(400).send({ error: 'Token de autenticação não fornecido' })
+        }
+
+        const token = authHeader.split(' ')[1]
+
+        if (!token) {
+            return res.status(400).send({ error: 'Token inválido ou mal informado' })
+        }
+
+        maxAge = parseInt(maxAge, 10)
+
+        if (isNaN(maxAge)) {
+            return res.status(400).send({ error: 'maxAge must be a valid integer' })
+        }
+
+        const response = await axios.post(
+            `${baseUrl}/sim-swap/v0/check`,
+            {
+                phoneNumber: phoneNumber,
+                maxAge: maxAge
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`  
+                }
+            }
+        )
+
+        const swaped = response.data
+        res.status(200).send({ swaped })
+
+    } catch (error) {
+        console.error(error)
         res.status(500).send({ error: `An error occurred: ${error.message}` })
     }
 })
