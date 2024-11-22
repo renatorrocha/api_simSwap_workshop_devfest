@@ -5,7 +5,8 @@
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/app.js",
+    "start": "node ./src/app.js"
 
   },
   "keywords": [],
@@ -20,5 +21,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1"
-  }
+  },
+  "engines": {
+    "node": "20.18.0" 
+}
 }
