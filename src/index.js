@@ -85,13 +85,13 @@ app.post('/sim-swap', async (req, res) => {
         const authHeader = req.headers.authorization
 
         if (!authHeader) {
-            return res.status(400).send({ error: 'Token de autenticação não fornecido' })
+            return res.status(400).send({ error: 'Authentication token not provided' })
         }
 
         const token = authHeader.split(' ')[1]
 
         if (!token) {
-            return res.status(400).send({ error: 'Token inválido ou mal informado' })
+            return res.status(400).send({ error: 'Invalid or malformed token' })
         }
 
         maxAge = parseInt(maxAge, 10)
