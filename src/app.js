@@ -13,7 +13,7 @@ const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const appCredentials = btoa(`${clientId}:${clientSecret}`)
 const baseUrl = 'https://sandbox.opengateway.telefonica.com/apigateway'
-const PORT = process.env.PORT
+const PORT = process.env.HOST_NUMBER
 
 
 const myHeaders = {
