@@ -48,9 +48,9 @@ app.post('/ciba-authorize',async(req,res)=>{
     }
 })
 
-//------------------ ACESS TOKEN ----------------------------
+//------------------ ACCESS TOKEN ----------------------------
 
-app.post('/acess-token',async(req,res)=>{
+app.post('/access-token',async(req,res)=>{
     try {
 
         const grant_type = req.body.grant_type
